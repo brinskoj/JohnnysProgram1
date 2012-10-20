@@ -457,9 +457,6 @@ namespace JohnnysProgram1_a {
 	String^					acctNum;
 	String^					password;
 	String^					userName;
-	//int						usersTime;
-	//int						hour;
-	//int						minute;
 	int						counter;
 	static	int				countWait = 4;
 	static	const	int		xCenter = 110;
@@ -486,6 +483,18 @@ namespace JohnnysProgram1_a {
 
 private: System::Void buttonExit_Click(System::Object^  sender, System::EventArgs^  e) 
 		 {
+			 buttonExit->Visible = false;
+			 buttonSubmitTime->Visible = false;
+			 labelTitle->Visible = false;
+			 labelEnterUserName->Visible = false;
+			 labelEnterTime->Visible = false;
+			 textBoxUserName->Visible = false;
+			 textBoxTime->Visible = false;
+			 pictureBoxClock->Visible = false;
+			 labelTime->Visible = false;
+			 timerDateTime->Enabled = false;
+			 pictureBoxDateTime->Visible = false;
+			 this->BackgroundImage = Image::FromFile("img/blackout.png");
 			 farewell();
 		 }
 
@@ -552,9 +561,9 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 			 parseTime(usersTime, hour, minute);
 			 labelTitle->BackColor = Color::WhiteSmoke;
 			 labelTitle->Text = "Thank you, " + userName + ", for entering a time of " + usersTime.ToString()
-								+ ". You Internet will turn on at " + hour.ToString() + ":" + minute.ToString();
-			 drawClock(hour, minute);
+								+ ". Your Internet will turn on at " + hour.ToString() + ":" + minute.ToString();
 			 drawTime(hour, minute, "Consolas", 48);
+			 drawClock(hour, minute);
 		 }
 
 /**************************************************************
@@ -577,18 +586,6 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 			 textBoxPassword->Visible = true;
 			 textBoxAccount->Focus();
 		 }
-
-/**************************************************************
-***                                                			***
-***    Form1_Paint											***
-***                                                			***
-**************************************************************/
-
-	//private: System::Void Form1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  pe) 
-	//		{
-	//			Graphics^ g = pe->Graphics;
-	//			countdown();
-	//		}
 
 /**************************************************************
 ***                                                			***
@@ -660,9 +657,10 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 
 	Void countdown()
 	{
+		g = this->CreateGraphics();
 		this->BackColor = Color::Black;
-		//playCountdown();
-		//Threading::Thread::Sleep(500);		// Wait for audio to buffer
+		playCountdown();
+		Threading::Thread::Sleep(500);		// Wait for audio to buffer
 
 		//johnnysDraw3();
 		for (float i = 4; i >= 1; i -= .25)
@@ -707,6 +705,9 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 		johnnysDraw0(1);
 		Threading::Thread::Sleep(300);
 		this->Refresh();
+
+		g->DrawImage(Image::FromFile("img/Bombexplosion.jpg"), 0, 0, 1268, 562);
+		Threading::Thread::Sleep(3000);
 	}
 
 /**************************************************************
@@ -1007,16 +1008,16 @@ signify which segment of the numberal it draws
 ***                                                			***
 **************************************************************/
 
-	//Void playCountdown()
-	//{
-	//	/////////////////////////////////////////////////////////////
-	//	//		DECLARE GLOBAL/INSTANCE VARIABLES 
-	//	/////////////////////////////////////////////////////////////
-	//	System::Media::SoundPlayer sndPlayer ( "wav/countdown.wav");
-	//	/////////////////////////////////////////////////////////////
+	Void playCountdown()
+	{
+		/////////////////////////////////////////////////////////////
+		//		DECLARE GLOBAL/INSTANCE VARIABLES 
+		/////////////////////////////////////////////////////////////
+		System::Media::SoundPlayer countdown ( "wav/countdownexplosion.wav");
+		/////////////////////////////////////////////////////////////
 
-	//	sndPlayer.Play();
-	//}
+		countdown.Play();
+	}
 
 /**************************************************************
 ***                                                			***
@@ -1090,7 +1091,7 @@ signify which segment of the numberal it draws
 
 	Void welcome()
 	{
-		//countdown();
+		countdown();
 		this->BackgroundImage = Image::FromFile( "img/daliclock.jpg" );
 		labelTitle->Visible = true;
 		labelTitle->Text = "Welcome to " + PROGRAMMERS_NAME 
