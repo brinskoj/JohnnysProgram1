@@ -494,7 +494,7 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 			 labelTime->Visible = false;
 			 timerDateTime->Enabled = false;
 			 pictureBoxDateTime->Visible = false;
-			 this->BackgroundImage = Image::FromFile("img/blackout.png");
+			 this->BackgroundImage = Image::FromFile("img/blackedout.png");
 			 farewell();
 		 }
 
@@ -657,7 +657,8 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 
 	Void countdown()
 	{
-		g = this->CreateGraphics();
+		//g = this->CreateGraphics();
+		//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 		this->BackColor = Color::Black;
 		playCountdown();
 		Threading::Thread::Sleep(500);		// Wait for audio to buffer
@@ -668,10 +669,12 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 			johnnysDraw3(i);
 			Threading::Thread::Sleep( 50 );
 			this->Refresh();
+			//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 		}
 		johnnysDraw3(1);
 		Threading::Thread::Sleep(300);
 		this->Refresh();
+		//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 
 		//johnnysDraw2();
 		for (float i = 4; i >= 1; i -= .25)
@@ -679,10 +682,12 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 			johnnysDraw2(i);
 			Threading::Thread::Sleep( 50 );
 			this->Refresh();
+			//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 		}
 		johnnysDraw2(1);
 		Threading::Thread::Sleep(300);
 		this->Refresh();
+		//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 
 		//johnnysDraw1();
 		for (float i = 4; i >= 1; i -= .25)
@@ -690,10 +695,12 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 			johnnysDraw1(i);
 			Threading::Thread::Sleep( 50 );
 			this->Refresh();
+			//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 		}
 		johnnysDraw1(1);
 		Threading::Thread::Sleep(300);
 		this->Refresh();
+		//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 		
 		//johnnysDraw0();
 		for (float i = 4; i >= 1; i -= .25)
@@ -701,10 +708,12 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 			johnnysDraw0(i);
 			Threading::Thread::Sleep( 50 );
 			this->Refresh();
+			//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 		}
 		johnnysDraw0(1);
 		Threading::Thread::Sleep(300);
 		this->Refresh();
+		//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 
 		g->DrawImage(Image::FromFile("img/Bombexplosion.jpg"), 0, 0, 1268, 562);
 		Threading::Thread::Sleep(3000);
@@ -838,27 +847,29 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 				"*************************************************************************************\n"
 				 "**************************************** ID INFO ************************************\n\n"
 				 "	Programmer		:	Johnny Brinsko\n"
-				 "	Assignment #		:	TA 1.5GGF\n"
-				 "	Assignment Name		:	GUI Goofy Functions\n"
+				 "	Assignment #		:	PROGRAM 1\n"
+				 "	Assignment Name		:	It's About Time\n"
 				 "	Course # and Title		:	CISC 192  - C++\n"
 				 "	Class Meeting Time		:	TTh 9:35 - 12:40\n"
 				 "	Instructor			:	Professor Forman\n"
 				 "	Hours			:	21\n"
 				 "	Difficulty			:	6\n"
-				 "	Completion Date		:	10/08/2012\n"
-				 "	Project Name		:	JohnnysGGF\n\n"
+				 "	Completion Date		:	10/23/2012\n"
+				 "	Project Name		:	It's About Time\n\n"
 				 "**************************************************************************************\n"
 				 "**************************************** CREDITS ************************************\n\n"
-				 "	Thanks to Professor Forman and Tim for completing the \n"
-				 "			learning triangle together\n\n"
+				 "	Thanks to Professor Forman, Tim, Jeremy, and Gerardo \n"
+				 "		for completing the learning triangle together\n\n"
 				 "*************************************************************************************\n"
 				 "**************************************** MEDIA *************************************\n\n"
-				 "Telescope:\n"
-				 "http://www.nasa.gov/images/content/536175main_image_1920_946-710.jpg"
-				 "\n\nGreen/blue space tunnel:\n"
-				 "http://www.sgeier.net/fractals/fractals/08/Space.jpg"
-				 "\n\nRocket:\n"
-				 "http://spaceplace.nasa.gov/review/pop-rocket/animrkt.en.gif"
+				 "Dali clocks:\n"
+				 "http://fingerfood.typepad.com/.a/6a012875949499970c0120a737211e970b-800wi"
+				 "\n\nBomb explosions picture:\n"
+				 "http://www.icie.us/web/wp-content/uploads/2012/08/Bomb-explosion.jpg"
+				 "\n\nTime ticking audio:\n"
+				 "http://www.denhaku.com/r_box/sr16/sr16perc/histicks.wav"
+				 "\n\nClock face:\n"
+				 "http://i.telegraph.co.uk/multimedia/archive/00958/money-graphics-2005_958909a.jpg"
 				 "\n\nApollo 11 launch countdown audio:\n"
 				 "http://www.youtube.com/watch?v=zGNryrsT7OI"
 				 "\n\nBomb explosion audio:\n"
@@ -869,16 +880,13 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 				 "10 stars\n\n"
 				 "*************************************************************************************\n"
 				 "**************************************** STARS *************************************\n\n"
-				 "Include current date and time with DrawString in a different color from welcome message\n"
-				 "Use a nested for-loop to draw a second engaging graphic\n"
-				 "Write and run a simple C++ program that only extracts and displays prompted stardate format before discussed how to do it\n"
-				 "In your countdown, have the current numeral disappear as the next numeral appears\n"
-				 "Create additional draw functions to draw the numbers 4-9, so countdown from 9 to 0\n"
-				 "In drawHorizontal and drawVertical functions, draw \"double lines\"\n"
-				 "Add a 4th parameter for scaling in drawHorizontal and drawVertical functions\n"
-				 "Use for-loops creatively and effectively in your drawHorizontal and drawVertical functions\n"
-				 "Expand the stardate info to include hour, minute, and second\n"
-				 "Add a message that reports the date in the abbreviated way and using leading zeros when appropriate\n"
+				 "1. Demo steps #1 - #4 by 16 Oct\n"
+				 "2. Demo steps #1 - #5 by 18 Oct\n"
+				 "3. Include in the story board your tentative plans for all your STARS\n"
+				 "4. Include all the graphic images, fonts, colors, etc. you plan to use\n"
+				 "5. Continuously display the current time\n"
+				 "6. Throughout the program, play the sound of a clock ticking in the background\n"
+				 "7. Create a colorful \"time\" motif using different images throughout your program\n"
 				 );
 			Close();
 	}
@@ -936,16 +944,16 @@ signify which segment of the numberal it draws
 
 	Void johnnysDraw3(float scale)
 	{
-			drawHorizontal(559, 35, 150, scale);	//1
-			drawHorizontal(559, 40, 150, scale);	//1
-			drawVertical(711, 42, 150, scale);		//2
-			drawVertical(716, 42, 150, scale);		//2
-			drawHorizontal(559, 194, 150, scale);	//3
-			drawHorizontal(559, 199, 150, scale);	//3
-			drawVertical(711, 201, 150, scale);		//5
-			drawVertical(716, 201, 150, scale);		//5
-			drawHorizontal(559, 353, 150, scale);	//7
-			drawHorizontal(559, 358, 150, scale);	//7
+		drawHorizontal(559, 35, 150, scale);	//1
+		drawHorizontal(559, 40, 150, scale);	//1
+		drawVertical(711, 42, 150, scale);		//2
+		drawVertical(716, 42, 150, scale);		//2
+		drawHorizontal(559, 194, 150, scale);	//3
+		drawHorizontal(559, 199, 150, scale);	//3
+		drawVertical(711, 201, 150, scale);		//5
+		drawVertical(716, 201, 150, scale);		//5
+		drawHorizontal(559, 353, 150, scale);	//7
+		drawHorizontal(559, 358, 150, scale);	//7
 	}
 
 	Void johnnysDraw2(float scale)
@@ -1048,6 +1056,8 @@ signify which segment of the numberal it draws
 
 	Void setupClock()
 	{
+		//g = this->CreateGraphics();
+		//g->DrawImage(Image::FromFile("img/clockgearspinkfloydclocknohands.jpg"), 0, 0, 1268, 562);
 		this->BackgroundImage = Image::FromFile( "img/clockgearspinkfloydclocknohands.jpg" );
 		labelAccount->Visible = false;
 		labelPassword->Visible = false;
@@ -1092,6 +1102,8 @@ signify which segment of the numberal it draws
 	Void welcome()
 	{
 		countdown();
+		//g = this->CreateGraphics();
+		//g->DrawImage(Image::FromFile("img/daliclockscaled.jpg"), 0, 0, 1268, 562);
 		this->BackgroundImage = Image::FromFile( "img/daliclock.jpg" );
 		labelTitle->Visible = true;
 		labelTitle->Text = "Welcome to " + PROGRAMMERS_NAME 

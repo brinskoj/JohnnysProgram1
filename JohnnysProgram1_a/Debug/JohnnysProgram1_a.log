@@ -1,4 +1,4 @@
-﻿Build started 10/19/2012 5:44:27 PM.
+﻿Build started 10/20/2012 5:37:33 PM.
      1>Project "C:\Users\tripgod\Dropbox\cplusplus\JohnnysProgram1\JohnnysProgram1_a\JohnnysProgram1_a.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\JohnnysProgram1_a.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -8,11 +8,11 @@
          All outputs are up-to-date.
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0" /Zi /clr:pure /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Debug\JohnnysProgram1_a.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Core.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Xml.dll" /analyze- /errorReport:prompt JohnnysProgram1_a.cpp /clr:nostdlib 
          JohnnysProgram1_a.cpp
-     1>c:\users\tripgod\dropbox\cplusplus\johnnysprogram1\johnnysprogram1_a\Form1.h(741): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\tripgod\dropbox\cplusplus\johnnysprogram1\johnnysprogram1_a\Form1.h(742): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\tripgod\dropbox\cplusplus\johnnysprogram1\johnnysprogram1_a\Form1.h(761): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\tripgod\dropbox\cplusplus\johnnysprogram1\johnnysprogram1_a\Form1.h(762): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\tripgod\dropbox\cplusplus\johnnysprogram1\johnnysprogram1_a\Form1.h(793): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\tripgod\dropbox\cplusplus\johnnysprogram1\johnnysprogram1_a\Form1.h(750): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\tripgod\dropbox\cplusplus\johnnysprogram1\johnnysprogram1_a\Form1.h(751): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\tripgod\dropbox\cplusplus\johnnysprogram1\johnnysprogram1_a\Form1.h(770): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\tripgod\dropbox\cplusplus\johnnysprogram1\johnnysprogram1_a\Form1.h(771): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\tripgod\dropbox\cplusplus\johnnysprogram1\johnnysprogram1_a\Form1.h(802): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
          All outputs are up-to-date.
        CoreResGen:
          All outputs are up-to-date.
@@ -34,4 +34,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.10
+Time Elapsed 00:00:02.08
