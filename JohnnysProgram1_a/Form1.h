@@ -494,6 +494,8 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 			 labelTime->Visible = false;
 			 timerDateTime->Enabled = false;
 			 pictureBoxDateTime->Visible = false;
+			 labelDescription->Visible = false;
+			 buttonToLogin->Visible = false;
 			 this->BackgroundImage = Image::FromFile("img/blackedout.png");
 			 farewell();
 		 }
@@ -663,8 +665,6 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 
 	Void countdown()
 	{
-		//g = this->CreateGraphics();
-		//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 		this->BackColor = Color::Black;
 		playCountdown();
 		Threading::Thread::Sleep(500);		// Wait for audio to buffer
@@ -675,12 +675,10 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 			johnnysDraw3(i);
 			Threading::Thread::Sleep( 50 );
 			this->Refresh();
-			//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 		}
 		johnnysDraw3(1);
 		Threading::Thread::Sleep(300);
 		this->Refresh();
-		//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 
 		//johnnysDraw2();
 		for (float i = 4; i >= 1; i -= .25)
@@ -688,12 +686,10 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 			johnnysDraw2(i);
 			Threading::Thread::Sleep( 50 );
 			this->Refresh();
-			//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 		}
 		johnnysDraw2(1);
 		Threading::Thread::Sleep(300);
 		this->Refresh();
-		//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 
 		//johnnysDraw1();
 		for (float i = 4; i >= 1; i -= .25)
@@ -701,12 +697,10 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 			johnnysDraw1(i);
 			Threading::Thread::Sleep( 50 );
 			this->Refresh();
-			//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 		}
 		johnnysDraw1(1);
 		Threading::Thread::Sleep(300);
 		this->Refresh();
-		//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 		
 		//johnnysDraw0();
 		for (float i = 4; i >= 1; i -= .25)
@@ -714,12 +708,10 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 			johnnysDraw0(i);
 			Threading::Thread::Sleep( 50 );
 			this->Refresh();
-			//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 		}
 		johnnysDraw0(1);
 		Threading::Thread::Sleep(300);
 		this->Refresh();
-		//g->DrawImage(Image::FromFile("img/blackedout.png"), 0, 0, 1268, 562);
 
 		g->DrawImage(Image::FromFile("img/Bombexplosion.jpg"), 0, 0, 1268, 562);
 		Threading::Thread::Sleep(3000);
@@ -1071,8 +1063,6 @@ signify which segment of the numberal it draws
 
 	Void setupClock()
 	{
-		//g = this->CreateGraphics();
-		//g->DrawImage(Image::FromFile("img/clockgearspinkfloydclocknohands.jpg"), 0, 0, 1268, 562);
 		this->BackgroundImage = Image::FromFile( "img/clockgearspinkfloydclocknohands.jpg" );
 		labelAccount->Visible = false;
 		labelPassword->Visible = false;
@@ -1083,6 +1073,7 @@ signify which segment of the numberal it draws
 		textBoxUserName->Visible = true;
 		textBoxTime->Visible = true;
 		buttonSubmitTime->Visible = true;
+		labelTitle->BackColor = Color::WhiteSmoke;
 		labelTitle->Text = "When would you like to activate your Internet?";
 	}
 
@@ -1117,8 +1108,6 @@ signify which segment of the numberal it draws
 	Void welcome()
 	{
 		countdown();
-		//g = this->CreateGraphics();
-		//g->DrawImage(Image::FromFile("img/daliclockscaled.jpg"), 0, 0, 1268, 562);
 		this->BackgroundImage = Image::FromFile( "img/daliclock.jpg" );
 		labelTitle->Visible = true;
 		labelTitle->Text = "Welcome to " + PROGRAMMERS_NAME 
