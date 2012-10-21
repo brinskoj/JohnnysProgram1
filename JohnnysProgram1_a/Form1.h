@@ -551,6 +551,10 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 		 {
 			 
 			 int		usersTime,
+						hourOnes = 9,
+						hourTens = 9,
+						minuteOnes = 9,
+						minuteTens = 9,
 						hour = 99,
 						minute = 88;
 
@@ -559,10 +563,12 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 			 userName = textBoxUserName->Text;
 			 int::TryParse(textBoxTime->Text, usersTime);
 			 parseTime(usersTime, hour, minute);
+			 parseMoreTime(usersTime, hourTens, hourOnes, minuteTens, minuteOnes);
 			 labelTitle->BackColor = Color::WhiteSmoke;
 			 labelTitle->Text = "Thank you, " + userName + ", for entering a time of " + usersTime.ToString()
-								+ ". Your Internet will turn on at " + hour.ToString() + ":" + minute.ToString();
-			 drawTime(hour, minute, "Consolas", 48);
+								+ ". Your Internet will turn on at " + hourTens.ToString() + hourOnes.ToString() 
+								+ ":" + minuteTens.ToString() + minuteOnes.ToString();
+			 drawTime(hourTens, hourOnes, minuteTens, minuteOnes, "Consolas", 48);
 			 drawClock(hour, minute);
 		 }
 
@@ -796,11 +802,11 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 		g->DrawLine( daPen, x / scale, y / scale, (x + length) / scale, y / scale );
 	}
 
-	Void drawTime(int hour, int minute, String^ fontName, int fontSize)
+	Void drawTime(int hourTens, int hourOnes, int minuteTens, int minuteOnes, String^ fontName, int fontSize)
 	{
 		labelTime->Font = (gcnew System::Drawing::Font(L""+fontName+"", fontSize, System::Drawing::FontStyle::Regular, 
 							System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-		labelTime->Text = hour.ToString() + ":" + minute.ToString();
+		labelTime->Text = hourTens.ToString() + hourOnes.ToString() + ":" + minuteTens.ToString() + minuteOnes.ToString();
 	}
 
 /**************************************************************
@@ -877,7 +883,7 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 		MessageBox::Show(
 				 "*************************************************************************************\n"
 				 "************************************** # OF STARS **********************************\n\n"
-				 "10 stars\n\n"
+				 "8 stars\n\n"
 				 "*************************************************************************************\n"
 				 "**************************************** STARS *************************************\n\n"
 				 "1. Demo steps #1 - #4 by 16 Oct\n"
@@ -887,6 +893,7 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 				 "5. Continuously display the current time\n"
 				 "6. Throughout the program, play the sound of a clock ticking in the background\n"
 				 "7. Create a colorful \"time\" motif using different images throughout your program\n"
+				 "8. Display leading zeros for single digit numbers\n"
 				 );
 			Close();
 	}
@@ -1006,6 +1013,14 @@ signify which segment of the numberal it draws
 	{
 		hour = usersTime / 100;
 		minute = usersTime % 100;
+	}
+
+	Void parseMoreTime(int usersTime, int& hourTens, int& hourOnes, int& minuteTens, int& minuteOnes)
+	{
+		hourTens	= usersTime / 1000;
+		hourOnes	= usersTime % 1000 / 100;
+		minuteTens	= usersTime % 100 / 10;
+		minuteOnes	= usersTime % 10;
 	}
 
 /**************************************************************
