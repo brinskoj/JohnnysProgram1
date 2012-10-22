@@ -10,8 +10,8 @@
 ***   Course # and Title		:	   		CISC 192 - C++			***
 ***   Class Meeting Time		:	   		TTh 9:35 - 12:40		***
 ***   Instructor				:			Professor Forman		***
-***   Hours						:			21						***
-***   Difficulty				:			6						***
+***   Hours						:			20						***
+***   Difficulty				:			5						***
 ***   Completion Date			:			10/23/2012				***
 ***   Project Name				:  			It's About Time		 	***	 
 ***																	***
@@ -20,22 +20,60 @@
 ***                                       							***
 ***						PROGRAM DESCRIPTION              			***
 ***																	***
-***	 
+***		This program is my first introduction to call-by-reference.	***
+***		First you'll see a countdown from 3 followed by a sound		***
+***		of explosion. The user will be greeted with a welcome		***
+***		message along with an introduction to the service. Date and	***
+***		time are always displayed in the bottom right. The user is	***
+***		asked to login with account number and password. After		***
+***		login, the user is shown what he entered, then after five	***
+***		seconds, be brought to a screen where he will be asked to	***
+***		input his name and time. On submit, the time that the user	***
+***		entered will be burped back and displayed in analog format	***
+***		by use of trig functions, sine and cosine. The user can		***
+***		continue inputting different times on the same screen. When	***
+***		bored, the user can click Exit. The countdown from the		***
+***		beginning of the program will start counting down with the	***
+***		explosive sound and picture followed by message boxes to	***
+***		display the ID info and stars.								***
 ***                                                         		***
 ***********************************************************************
 ***********************************************************************
 ***																	***
 ***					Event-Defined Function List						***
 ***                                                         		***
-***		
+***		buttonExit_Click											***
+***		buttonLogin_Click											***
+***		buttonStart_Click											***
+***		buttonSubmitTime_Click										***
+***		buttonToLogin_Click											***
+***		timerPause_Tick												***
+***		timerShowDateTime_Tick										***
 ***																	***
 ***********************************************************************
 ***********************************************************************
 ***																	***
 ***					Custom-Defined Function List					***
 ***                                                         		***
-***		
-***		
+***		countdown													***
+***		drawClock													***
+***		drawHorizontal												***
+***		drawHour													***
+***		drawMinute													***
+***		drawTime													***
+***		drawVertical												***
+***		echoCredentials												***
+***		farewell													***
+***		getAcctNum													***
+***		getPassword													***
+***		johnnysDraw{0-3}											***
+***		parseTime													***
+***		parseMoreTime												***
+***		playCountdown												***
+***		playClockTick												***
+***		setupClock													***
+***		showDateTime												***
+***		welcome														***
 ***																	***
 ***********************************************************************
 ***********************************************************************
@@ -44,18 +82,34 @@
 ***                                                         		***
 ***   		Thanks for assistance and inspiration from:        		***
 ***                                                         		***
-***				   Professor Forman and Tim							***
+***			Professor Forman, Tim, Jeremy and Gerardo				***
 ***                                                         		***
 ***   		Thanks for the opportunity to assist and inspire:     	***
 ***								                               		***
-***				   Professor Forman and Tim							***
+***			Professor Forman, Tim, Jeremy and Gerardo				***
 ***                                                         		***
 ***********************************************************************
 ***********************************************************************
 ***																	***
 ***						      MEDIA				                    ***
 ***																	***
-***		
+***		Dali clocks:												
+***	http://fingerfood.typepad.com/.a/6a012875949499970c0120a737211e970b-800wi
+***																	
+***		Bomb explosions picture:									
+***	http://www.icie.us/web/wp-content/uploads/2012/08/Bomb-explosion.jpg
+***																	
+***		Time ticking audio:
+***	http://www.denhaku.com/r_box/sr16/sr16perc/histicks.wav
+***
+***		Clock face:
+***	http://i.telegraph.co.uk/multimedia/archive/00958/money-graphics-2005_958909a.jpg
+***
+***		Apollo 11 launch countdown audio:							***
+***	http://www.youtube.com/watch?v=zGNryrsT7OI						***
+***																	***
+***		Bomb explosion audio:\n"									***
+***	http://www.youtube.com/watch?v=wxRLWHYmftQ						***
 ***																	***
 ***********************************************************************
 ***********************************************************************
@@ -785,46 +839,6 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 		drawHour(hour, minute);
 	}
 
-	Void drawHour(int hour, int minute)
-	{
-		
-		int		hourLength,
-				x,
-				y;
-		double	angle;
-		Pen^	bluePen;
-
-
-		g = pictureBoxClock->CreateGraphics();
-		angle = (hour + minute / 60.) * (360 / 12);
-		hourLength = 45;
-		x = xCenter + hourLength * Math::Sin(angle * Math::PI / 180);
-		y = yCenter - hourLength * Math::Cos(angle * Math::PI / 180);
-		
-		bluePen = gcnew Pen(Color::Blue, 3);
-		g->DrawLine(bluePen, xCenter, yCenter, x, y);
-	}
-
-	Void drawMinute(int minute)
-	{
-		
-		int		hourLength,
-				x,
-				y;
-		double	angle;
-		Pen^	redPen;
-
-
-		g = pictureBoxClock->CreateGraphics();
-		angle = minute * 6.;
-		hourLength = 80;
-		x = xCenter + hourLength * Math::Sin(angle * Math::PI / 180);
-		y = yCenter - hourLength * Math::Cos(angle * Math::PI / 180);
-		
-		redPen = gcnew Pen(Color::Red, 3);
-		g->DrawLine(redPen, xCenter, yCenter, x, y);
-	}
-
 /**************************************************************
 ***                                                			***
 ***    drawHorizontal										***
@@ -846,6 +860,74 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 		g = this->CreateGraphics();
 		g->DrawLine( daPen, x / scale, y / scale, (x + length) / scale, y / scale );
 	}
+
+/**************************************************************
+***                                                			***
+***    drawHour												***
+***                                                			***
+***		
+***                                                			***
+**************************************************************/
+
+	Void drawHour(int hour, int minute)
+	{
+		///////////////////////////////////////////////////////////////
+		//		DECLARE LOCAL VARIABLES 
+		///////////////////////////////////////////////////////////////
+		int		hourLength,
+				x,
+				y;
+		double	angle;
+		Pen^	bluePen;
+		///////////////////////////////////////////////////////////////
+
+		g = pictureBoxClock->CreateGraphics();
+		angle = (hour + minute / 60.) * (360 / 12);
+		hourLength = 45;
+		x = xCenter + hourLength * Math::Sin(angle * Math::PI / 180);
+		y = yCenter - hourLength * Math::Cos(angle * Math::PI / 180);
+		
+		bluePen = gcnew Pen(Color::Blue, 3);
+		g->DrawLine(bluePen, xCenter, yCenter, x, y);
+	}
+
+/**************************************************************
+***                                                			***
+***    drawMinute											***
+***                                                			***
+***		
+***                                                			***
+**************************************************************/
+
+	Void drawMinute(int minute)
+	{
+		///////////////////////////////////////////////////////////////
+		//		DECLARE LOCAL VARIABLES 
+		///////////////////////////////////////////////////////////////
+		int		hourLength,
+				x,
+				y;
+		double	angle;
+		Pen^	redPen;
+		///////////////////////////////////////////////////////////////
+
+		g = pictureBoxClock->CreateGraphics();
+		angle = minute * 6.;
+		hourLength = 80;
+		x = xCenter + hourLength * Math::Sin(angle * Math::PI / 180);
+		y = yCenter - hourLength * Math::Cos(angle * Math::PI / 180);
+		
+		redPen = gcnew Pen(Color::Red, 3);
+		g->DrawLine(redPen, xCenter, yCenter, x, y);
+	}
+
+/**************************************************************
+***                                                			***
+***    drawTime												***
+***                                                			***
+***		
+***                                                			***
+**************************************************************/
 
 	Void drawTime(int hourTens, int hourOnes, int minuteTens, int minuteOnes, String^ fontName, int fontSize)
 	{
@@ -889,6 +971,14 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 		labelShowAcctNum->Text = acctNum;
 		labelShowPassword->Text = password;
 	}
+
+/**************************************************************
+***                                                			***
+***    farewell												***
+***                                                			***
+***		
+***                                                			***
+**************************************************************/
 
 	Void farewell()
 	{
@@ -1060,6 +1150,14 @@ signify which segment of the numberal it draws
 		minute = usersTime % 100;
 	}
 
+/**************************************************************
+***                                                			***
+***    parseMoreTime										***
+***                                                			***
+***		
+***                                                			***
+**************************************************************/
+
 	Void parseMoreTime(int usersTime, int& hourTens, int& hourOnes, int& minuteTens, int& minuteOnes)
 	{
 		hourTens	= usersTime / 1000;
@@ -1072,7 +1170,7 @@ signify which segment of the numberal it draws
 ***                                                			***
 ***    playCountdown										***
 ***                                                			***
-***		Plays countdown.wav									***
+***		Plays countdownexplosion.wav						***
 ***                                                			***
 **************************************************************/
 
@@ -1182,7 +1280,6 @@ signify which segment of the numberal it draws
 ***                                                			***
 ***************************************************************
 **************************************************************/
-
 
 };
 }
