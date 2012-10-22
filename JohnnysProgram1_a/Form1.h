@@ -446,7 +446,9 @@ namespace JohnnysProgram1_a {
 //			GLOBAL CONSTANTS
 ///////////////////////////////////////////////////////////////
 
-	static const String^ PROGRAMMERS_NAME = "Johnny B";
+	static	const	String^ PROGRAMMERS_NAME = "Johnny B";
+	static	const	int		xCenter = 110;
+	static	const	int		yCenter = 110;
 
 ///////////////////////////////////////////////////////////////
 
@@ -459,8 +461,6 @@ namespace JohnnysProgram1_a {
 	String^					userName;
 	int						counter;
 	static	int				countWait = 4;
-	static	const	int		xCenter = 110;
-	static	const	int		yCenter = 110;
 	Drawing::Font^			daFont;
 	Drawing::Brush^			daBrush;
 	Drawing::Graphics^		g;
@@ -478,6 +478,11 @@ namespace JohnnysProgram1_a {
 /**************************************************************
 ***                                                			***
 ***    buttonExit_Click										***
+***															***
+***		Hides everything that can be seen. Since I can't	***
+***		figure out how to reset the BackgroundImage, I		***
+***		replace the BackgroundImage as blackedout.png.		***
+***		Then calls farewell function.						***
 ***                                                			***
 **************************************************************/
 
@@ -503,16 +508,30 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 /**************************************************************
 ***                                                			***
 ***    buttonLogin_Click									***
+***															***
+***		Hides buttonLogin, textBoxAccount, and				***
+***		textBoxPassword. Shows labelShowAcctNum and			***
+***		labelShowPassword. Changes labelTitle text with a	***
+***		thank you message. Call getAcctNum function and		***
+***		stores result to acctNum. Calls getPassword			***
+***		function and uses password via call-by-reference.	***
+***		Enables timerPause, which will call echoCredentials	***
+***		function for five seconds, then deploys setupClock	***
+***		function. Calls echoCredentials function to make	***
+***		sure that all labels are saying what they need to	***
+***		say. Calls acctNum and password by reference		***
 ***                                                			***
 **************************************************************/
 
 	private: System::Void buttonLogin_Click(System::Object^  sender, System::EventArgs^  e) 
 		 {
-			 
+			 ///////////////////////////////////////////////////////////////
+			 //		DECLARE LOCAL VARIABLES 
+			 ///////////////////////////////////////////////////////////////
 			 acctNum			= "Your Mom";
 			 String^ password	= "Goes To College";
 			 counter			= 1;
-
+			 ///////////////////////////////////////////////////////////////
 
 			 buttonLogin->Visible = false;
 			 textBoxAccount->Visible = false;
@@ -530,6 +549,11 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 /**************************************************************
 ***                                                			***
 ***    buttonStart_Click									***
+***															***
+***		Hides buttonStart. Enables timerDateTime to start	***
+***		drawing the Date and Time in a picture box. Calls	***
+***		welcome function. Shows pictureBoxDateTime,			***
+***		buttonExit, and buttonToLogin.						***
 ***                                                			***
 **************************************************************/
 
@@ -546,12 +570,30 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 /**************************************************************
 ***                                                			***
 ***    buttonSubmitTime_Click								***
+***															***
+***		Shows labelTime and pictureBoxClock. Assigns text	***
+***		in textBoxUserName to string usersName. Converts	***
+***		user's time input from textBoxTime into an int.		***
+***		Passes usersTime by value to parseTime function		***
+***		along with hour and minute as call-by-reference.	***
+***		Calls parseMoreTime function to extract every digit	***
+***		from usersTime and assigns the value by reference.	***
+***		Makes back color of labelTitle to be more readable.	***
+***		Updates labelTitle to display user's name, what the	***
+***		user entered and displays time in normal timestamp	***
+***		format as well as showing leading zero where		***
+***		applicable. Calls the drawTime function to display	***
+***		user's time input in normal timestamp format along	***
+***		with leading zeros where applicable. Calls the		***
+***		drawClock function.									***
 ***                                                			***
 **************************************************************/
 
 	private: System::Void buttonSubmitTime_Click(System::Object^  sender, System::EventArgs^  e) 
 		 {
-			 
+			 ///////////////////////////////////////////////////////////////
+			 //		DECLARE LOCAL VARIABLES 
+			 ///////////////////////////////////////////////////////////////
 			 int		usersTime,
 						hourOnes = 9,
 						hourTens = 9,
@@ -559,13 +601,14 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 						minuteTens = 9,
 						hour = 99,
 						minute = 88;
+			 ///////////////////////////////////////////////////////////////
 
 			 labelTime->Visible = true;
 			 pictureBoxClock->Visible = true;
 			 userName = textBoxUserName->Text;
 			 int::TryParse(textBoxTime->Text, usersTime);
 			 parseTime(usersTime, hour, minute);
-			 parseMoreTime(usersTime, hourTens, hourOnes, minuteTens, minuteOnes);
+			 parseMoreTime(usersTime, hourTens, hourOnes, minuteTens, minuteOnes);	//*STAR
 			 labelTitle->BackColor = Color::WhiteSmoke;
 			 labelTitle->Text = "Thank you, " + userName + ", for entering a time of " + usersTime.ToString()
 								+ ". Your Internet will turn on at " + hourTens.ToString() + hourOnes.ToString() 
@@ -577,6 +620,12 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 /**************************************************************
 ***                                                			***
 ***    buttonToLogin_Click									***
+***															***
+***		Hides buttonToLogin and labelDescription. Shows		***
+***		buttonLogin, labelAccount, labelPassword,			***
+***		textBoxAccount and textBoxPassword. Updates labels	***
+***		to ask user for account number and password. Cursor	***
+***		focused on textBoxAccount.							***
 ***                                                			***
 **************************************************************/
 
@@ -599,8 +648,12 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 ***                                                			***
 ***    timerPause_Tick										***
 ***                                                			***
-***		Wait five seconds before hiding Exit button and		***
-***		 then calls setupClock function.					***
+***		Wait five seconds before hiding Exit button, each	***
+***		tick adds one to counter and subtracts one from		***
+***		countWait. Updates the labelTitle with the amount	***
+***		of seconds to wait. After counter is greater than	***
+***		or equal to 5, disables this timer and calls		***
+***		setupClock.											***
 ***                                                			***
 **************************************************************/
 
@@ -785,7 +838,7 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 	Void drawHorizontal(int x, int y, int length, float scale)
 	{
 		///////////////////////////////////////////////////////////////
-		//		DECLARE GLOBAL/INSTANCE VARIABLES 
+		//		DECLARE LOCAL VARIABLES 
 		///////////////////////////////////////////////////////////////
 		Pen^	daPen	=	gcnew Pen( Color::Red, 4 );
 		///////////////////////////////////////////////////////////////
@@ -814,7 +867,7 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 	Void drawVertical(int x, int y, int length, float scale)
 	{
 		///////////////////////////////////////////////////////////////
-		//		DECLARE GLOBAL/INSTANCE VARIABLES 
+		//		DECLARE LOCAL VARIABLES 
 		///////////////////////////////////////////////////////////////
 		Pen^	daPen	=	gcnew Pen( Color::Red, 4  );
 		///////////////////////////////////////////////////////////////
@@ -1108,7 +1161,7 @@ signify which segment of the numberal it draws
 	Void welcome()
 	{
 		countdown();
-		this->BackgroundImage = Image::FromFile( "img/daliclock.jpg" );
+		this->BackgroundImage = Image::FromFile( "img/daliclockscaled.jpg" );
 		labelTitle->Visible = true;
 		labelTitle->Text = "Welcome to " + PROGRAMMERS_NAME 
 							+ "'s Intergalactic Internet Service on Intergalactic Travel!";
