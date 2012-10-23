@@ -48,7 +48,7 @@
 ***		buttonSubmitTime_Click										***
 ***		buttonToLogin_Click											***
 ***		timerPause_Tick												***
-***		timerShowDateTime_Tick										***
+***		timerDateTime_Tick											***
 ***																	***
 ***********************************************************************
 ***********************************************************************
@@ -595,7 +595,7 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 			 labelTitle->Text = "Thank you for entering:";
 			 acctNum = getAcctNum();
 			 getPassword(password);
-			 timerPause->Enabled = true;	// timer calls echoCredentials() for five seconds, then deploys setupClock()
+			 timerPause->Enabled = true;	// timer counts down for five seconds, then deploys setupClock()
 			 echoCredentials(acctNum, password);
 			 
 		 }
@@ -730,7 +730,7 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 
 /**************************************************************
 ***                                                			***
-***    timerShowDateTime_Tick								***
+***    timerDateTime_Tick									***
 ***                                                			***
 ***		Calls showDateTime function every second.			***
 ***                                                			***
@@ -757,18 +757,31 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 ***************************************************************
 **************************************************************/
 	
-/**************************************************************
-***                                                			***
-***		countdown											***
-***                                                			***
-***		Calls playCountdown function. Calls					***
-***		 johnnysDraw[0-3] functions, starting with 3 in		***
-***		 descending order. Uses for-loop to start the		***
-***		 number in top left at one-fourth the size. The		***
-***		 number will move toward the center, getting bigger	***
-***		 in increments of .25 scaling factor.				***
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***											                    			***
+***		Name:			countdown											***
+***												                			***
+***		Description:	Calls playCountdown function. Calls					***
+***						johnnysDraw{0-3} functions, starting with 3 in		***
+***						descending order. Uses for-loop to start the		***
+***						number in top left at one-fourth the size. The		***
+***						number will move toward the center, getting bigger	***
+***						in increments of .25 scaling factor.				***
+***                                                							***
+***		Preconditions:	None												***
+***																			***
+***		Postconditions:	None												***
+***																			***
+***		Calls:			johnnysDraw0										***
+***						johnnysDraw1										***
+***						johnnysDraw2										***
+***						johnnysDraw3										***
+***						playCountdown										***
+***																			***
+***		Called by:		farewell											***
+***						welcome												***
+***																			***
+******************************************************************************/
 
 	Void countdown()
 	{
@@ -824,13 +837,26 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 		Threading::Thread::Sleep(3000);
 	}
 
-/**************************************************************
-***                                                			***
-***    drawClock											***
-***                                                			***
-***		
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***                                                							***
+***		Name:			drawClock											***
+***                                                							***
+***		Description:	Refreshes pictureBoxClock to get rid of any			***
+***						previous drawings. Obtain the hour and minute from	***
+***						user's input and pass them into the drawHour and	***
+***						drawMinute functions to draw the hands of the clock	***
+***                                                							***
+***		Preconditions:	The hour (range 0-23) and minute (range 0-59) are	***
+***						integers supplied by the user.						***
+***																			***
+***		Postconditions:	None												***
+***																			***
+***		Calls:			drawHour											***
+***						drawMinute											***
+***																			***
+***		Called by:		buttonSubmitTime_Click								***
+***																			***
+******************************************************************************/
 
 	Void drawClock(int hour, int minute)
 	{
@@ -839,15 +865,33 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 		drawHour(hour, minute);
 	}
 
-/**************************************************************
-***                                                			***
-***    drawHorizontal										***
-***                                                			***
-***		Draws a red horizontal line at specified length,	***
-***		 starting at specified column and row. Scale will	***
-***		 determine how small to draw the line.				***
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***                                                							***
+***		Name:			drawHorizontal										***
+***                                                							***
+***		Description:	Draws a red horizontal line at specified length,	***
+***						starting at specified column and row. Scale will	***
+***						determine how small to draw the line. 				***
+***                                                							***
+***		Preconditions:	The x and y are integers not to exceed the size of	***
+***						of the form. The ranges are integers of 0-1268 and	***
+***						0-562 for x	and y respectively. The length is		***
+***						predetermined to be an integer of 150. The x, y,	***
+***						and length are hard coded in the johnnysDraw{0-3}	***
+***						functions. The scale is a float that is adjusted	***
+***						by the countdown function's for statment. The range	***
+***						is a float from .25 to 4.							***
+***																			***
+***		Postconditions:	None												***
+***																			***
+***		Calls:			None												***
+***																			***
+***		Called by:		johnnysDraw0										***
+***						johnnysDraw1										***
+***						johnnysDraw2										***
+***						johnnysDraw3										***
+***																			***
+******************************************************************************/
 
 	Void drawHorizontal(int x, int y, int length, float scale)
 	{
@@ -861,20 +905,34 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 		g->DrawLine( daPen, x / scale, y / scale, (x + length) / scale, y / scale );
 	}
 
-/**************************************************************
-***                                                			***
-***    drawHour												***
-***                                                			***
-***		
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***                                                							***
+***		Name:			drawHour											***
+***                                                							***
+***		Description:	Draws the hour hand based on the hour supplied by	***
+***						the user. Uses basic trig functions to figure out	***
+***						the proper angle.									***
+***                                                							***
+***		Preconditions:	The hour (range 0-23) and minute (range 0-59) are	***
+***						integers supplied by the user. The handLength is an	***
+***						integer hard-coded to be 45. The x and y are		***
+***						coordinates calculated by the sine and cosine		***
+***						functions. The angle is calculated as a double.		***
+***																			***
+***		Postconditions:	None												***
+***																			***
+***		Calls:			None												***
+***																			***
+***		Called by:		drawClock											***
+***																			***
+******************************************************************************/
 
 	Void drawHour(int hour, int minute)
 	{
 		///////////////////////////////////////////////////////////////
 		//		DECLARE LOCAL VARIABLES 
 		///////////////////////////////////////////////////////////////
-		int		hourLength,
+		int		handLength,
 				x,
 				y;
 		double	angle;
@@ -883,28 +941,42 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 
 		g = pictureBoxClock->CreateGraphics();
 		angle = (hour + minute / 60.) * (360 / 12);
-		hourLength = 45;
-		x = xCenter + hourLength * Math::Sin(angle * Math::PI / 180);
-		y = yCenter - hourLength * Math::Cos(angle * Math::PI / 180);
+		handLength = 45;
+		x = xCenter + handLength * Math::Sin(angle * Math::PI / 180);
+		y = yCenter - handLength * Math::Cos(angle * Math::PI / 180);
 		
 		bluePen = gcnew Pen(Color::Blue, 3);
 		g->DrawLine(bluePen, xCenter, yCenter, x, y);
 	}
 
-/**************************************************************
-***                                                			***
-***    drawMinute											***
-***                                                			***
-***		
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***                                                							***
+***		Name:			drawMinute											***
+***                                                							***
+***		Description:	Draws the minute hand based on the minute supplied	***
+***						by the user. Uses basic trig functions to figure	***
+***						out the proper angle.								***
+***                                                							***
+***		Preconditions:	The minute (range 0-59) is an integer supplied by	***
+***						the user. The handLength is an	integer hard-coded	***
+***						to be 45. The x and y are coordinates calculated by	***
+***						the sine and cosine	functions. The angle is			***
+***						calculated as a double.								***
+***																			***
+***		Postconditions:	None												***
+***																			***
+***		Calls:			None												***
+***																			***
+***		Called by:		drawClock											***
+***																			***
+******************************************************************************/
 
 	Void drawMinute(int minute)
 	{
 		///////////////////////////////////////////////////////////////
 		//		DECLARE LOCAL VARIABLES 
 		///////////////////////////////////////////////////////////////
-		int		hourLength,
+		int		handLength,
 				x,
 				y;
 		double	angle;
@@ -913,21 +985,34 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 
 		g = pictureBoxClock->CreateGraphics();
 		angle = minute * 6.;
-		hourLength = 80;
-		x = xCenter + hourLength * Math::Sin(angle * Math::PI / 180);
-		y = yCenter - hourLength * Math::Cos(angle * Math::PI / 180);
+		handLength = 80;
+		x = xCenter + handLength * Math::Sin(angle * Math::PI / 180);
+		y = yCenter - handLength * Math::Cos(angle * Math::PI / 180);
 		
 		redPen = gcnew Pen(Color::Red, 3);
 		g->DrawLine(redPen, xCenter, yCenter, x, y);
 	}
 
-/**************************************************************
-***                                                			***
-***    drawTime												***
-***                                                			***
-***		
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***                                                							***
+***		Name:			drawTime											***
+***                                                							***
+***		Description:	Displays the time in HH:MM format in labelTime.		***
+***                                                							***
+***		Preconditions:	hourTens is an integer from 0 to 2. hourOnes is an	***
+***						integer from 0 to 9. minuteTens is an integer from	***
+***						0 to 5. minuteOnes is an integer from 0 to 9.		***
+***						fontName is a string that must be a valid font		***
+***						name. It is hard-coded to be "Consolas". The		***
+***						fontSize is an integer hard-coded to be 48.			***
+***																			***
+***		Postconditions:	None												***
+***																			***
+***		Calls:			None												***
+***																			***
+***		Called by:		buttonSubmitTime_Click								***
+***																			***
+******************************************************************************/
 
 	Void drawTime(int hourTens, int hourOnes, int minuteTens, int minuteOnes, String^ fontName, int fontSize)
 	{
@@ -936,15 +1021,33 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 		labelTime->Text = hourTens.ToString() + hourOnes.ToString() + ":" + minuteTens.ToString() + minuteOnes.ToString();
 	}
 
-/**************************************************************
-***                                                			***
-***    drawVertical											***
-***                                                			***
-***		Draws a red vertical line at specified length,		***
-***		 starting at specified column and row. Scale will	***
-***		 determine how small to draw the line.				***
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***																	  		***
+***		Name:			drawVertical										***
+***                                                							***
+***		Description:	Draws a red vertical line at specified length,		***
+***						starting at specified column and row. Scale will	***
+***						determine how small to draw the line.				***
+***                                                							***
+***		Preconditions:	The x and y are integers not to exceed the size of	***
+***						of the form. The ranges are integers of 0-1268 and	***
+***						0-562 for x	and y respectively. The length is		***
+***						predetermined to be an integer of 150. The x, y,	***
+***						and length are hard coded in the johnnysDraw{0-3}	***
+***						functions. The scale is a float that is adjusted	***
+***						by the countdown function's for statment. The range	***
+***						is a float from .25 to 4.							***
+***																			***
+***		Postconditions:	None												***
+***																			***
+***		Calls:			None												***
+***																			***
+***		Called by:		johnnysDraw0										***
+***						johnnysDraw1										***
+***						johnnysDraw2										***
+***						johnnysDraw3										***
+***																			***
+******************************************************************************/
 
 	Void drawVertical(int x, int y, int length, float scale)
 	{
@@ -958,13 +1061,23 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 		g->DrawLine( daPen, x / scale, y / scale, x / scale, (y + length) / scale );
 	}
 
-/**************************************************************
-***                                                			***
-***    echoCredentials										***
-***                                                			***
-***		
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***													            			***
+***		Name:			echoCredentials										***
+***                                                							***
+***		Description:	Takes the user's input for accountNum and password	***
+***						and displays it in labels.							***
+***                                                							***
+***		Preconditions:	acctNum is a string up to 13 characters. password	***
+***						is a string up to 13 characters.					***
+***																			***
+***		Postconditions:	None												***
+***																			***
+***		Calls:			None												***
+***																			***
+***		Called by:		buttonLogin_Click									***
+***																			***
+******************************************************************************/
 		
 	Void echoCredentials(String^ acctNum, String^ password)
 	{
@@ -972,13 +1085,28 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 		labelShowPassword->Text = password;
 	}
 
-/**************************************************************
-***                                                			***
-***    farewell												***
-***                                                			***
-***		
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***															     			***
+***		Name:			farewell											***
+***                                                							***
+***		Description:	Deploys the countdown function. Then it				***
+***						uses a message box to thank the user by name for	***
+***						using my service (used as a constant). Then will	***
+***						show more message boxes to display ID info and		***
+***						stars earned. The program will close after the last	***
+***						message box has closed.								***
+***                                                							***
+***		Preconditions:	Uses the instance variable, userName, and the		***
+***						constant, PROGRAMMERS_NAME, for display in the		***
+***						first message box.									***
+***																			***
+***		Postconditions:	None												***
+***																			***
+***		Calls:			None												***
+***																			***
+***		Called by:		buttonExit_Click									***
+***																			***
+******************************************************************************/
 
 	Void farewell()
 	{
@@ -1033,27 +1161,44 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 			Close();
 	}
 
-/**************************************************************
-***                                                			***
-***    getAcctNum											***
-***                                                			***
-***		Returns string value located in textBoxAccount		***
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***														        			***
+***		Name:			getAcctNum											***
+***										                           			***
+***		Description:	Returns string value located in textBoxAccount		***
+***                                                							***
+***		Preconditions:	A string value in textBoxAccount up to 16 charcters	***
+***																			***
+***		Postconditions:	Returns the string value in textBoxAccount			***
+***																			***
+***		Calls:			None												***
+***																			***
+***		Called by:		buttonLogin_Click									***
+***																			***
+******************************************************************************/
 
 	String^ getAcctNum()
 	{
 		return textBoxAccount->Text;
 	}
 
-/**************************************************************
-***                                                			***
-***    getPassword											***
-***                                                			***
-***		Uses call-by-reference to define thePassword as		***
-***		 text input from textBoxPassword					***
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***														         			***
+***		Name:			getPassword											***
+***														         			***
+***		Description:	Uses call-by-reference to define thePassword as		***
+***						text input from textBoxPassword						***
+***                                                							***
+***		Preconditions:	thePassword is a string up to 13 characters			***
+***																			***
+***		Postconditions:	Uses call-by-reference to assign the string in		***
+***						textBoxPassword to the variable, password.			***
+***																			***
+***		Calls:			None												***
+***																			***
+***		Called by:		buttonLogin_Click									***
+***																			***
+******************************************************************************/
 
 	Void getPassword(String^& thePassword)
 	{
@@ -1061,28 +1206,41 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 	}
 
 /******************************************************************************
-johnnysDraw3 to johnnysDraw0 (descending order)
-
-	Draws specified number using drawHorizontal and drawVertical functions.
-	Creates a double line for each whole line.
-	Takes into account the specified size with scale parameter.
-
-
-Comments to the right of drawHorizontal and drawVertical functions 
-signify which segment of the numberal it draws
-
-			1
-		---------
-		|		|
-	   4|		|2
-		|	3	|
-		---------
-		|		|
-	   6|		|5
-		|	7	|
-		---------
-
-*******************************************************************************/
+***																			***
+***		Name:			johnnysDraw{0-3}									***
+***																			***
+***		Description:	Draws specified number using drawHorizontal and		***
+***						drawVertical functions. Creates a double line for	***
+***						each whole line. Takes into account the specified	***
+***						size with scale parameter.							***
+***																			***
+***						Comments to the right of drawHorizontal and			***
+***						drawVertical functions signify which segment of the	***
+***						numberal it draws									***
+***																			***
+***							1												***
+***						---------											***
+***						|		|											***
+***					   4|		|2											***
+***						|	3	|											***
+***						---------											***
+***						|		|											***
+***					   6|		|5											***
+***						|	7	|											***
+***						---------											***
+***																			***
+***		Preconditions:	Scale is a float defined by the for statement in	***
+***						the countdown function. It has a range of .25 and	***
+***						4. The other values for drawHorizontal and			***
+***						drawVertical are hard-coded.						***
+***																			***
+***		Postconditions:	None												***
+***																			***
+***		Calls:			None												***
+***																			***
+***		Called by:		countdown											***
+***																			***
+******************************************************************************/
 
 	Void johnnysDraw3(float scale)
 	{
@@ -1136,13 +1294,29 @@ signify which segment of the numberal it draws
 		drawHorizontal(559, 358, 150, scale);	//7
 	}
 
-/**************************************************************
-***                                                			***
-***    parseTime											***
-***                                                			***
-***		
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***                                                							***
+***		Name:			parseTime											***
+***                                                							***
+***		Description:	Uses the integer of the user's input for usersTime	***
+***						with a range of 0000 - 2359 and assigns the value	***
+***						of the left two digits the variable, hour, and the	***
+***						right two digits to be the variable, minute. The	***
+***						hour and minute are assigned as call-by-reference.	***
+***                                                							***
+***		Preconditions:	Uses the integer of the user's input for usersTime	***
+***						with a range of 0000 - 2359. The hour and minute	***
+***						variables are integers.								***
+***																			***
+***		Postconditions:	The hour (range 00-23) and minute (range 00-59)		***
+***						variables are integers and are assigned via			***
+***						call-by-reference.									***
+***																			***
+***		Calls:			None												***
+***																			***
+***		Called by:		buttonSubmitTime_Click								***
+***																			***
+******************************************************************************/
 
 	Void parseTime(int usersTime, int& hour, int& minute)
 	{
@@ -1150,13 +1324,33 @@ signify which segment of the numberal it draws
 		minute = usersTime % 100;
 	}
 
-/**************************************************************
-***                                                			***
-***    parseMoreTime										***
-***                                                			***
-***		
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***                                                							***
+***		Name:			parseMoreTime										***
+***                                                							***
+***		Description:	Uses the integer of the user's input for usersTime	***
+***						with a range of 0000 - 2359 and assigns the value	***
+***						of the far left digit the variable, hourTens, the	***
+***						second-left-most digit to be the variable,			***
+***						hourOnes, the second-right-most digit to be the		***
+***						variable, minuteTens, the right-most digit to be	***
+***						the variable, minuteOnes. These are assigned via	***
+***						call-by-reference.									***
+***                                                							***
+***		Preconditions:	Uses the integer of the user's input for usersTime	***
+***						with a range of 0000 - 2359. All variables are		***
+***						integers.											***
+***																			***
+***		Postconditions:	The hourTens has a range of 0-2. The hourOnes has a	***
+***						range of 0-9. The minuteTens has a range of 0-5.	***
+***						The minuteOnes has a range of 0-9. They are used	***
+***						via call-by-reference.								***
+***																			***
+***		Calls:			None												***
+***																			***
+***		Called by:		buttonSubmitTime_Click								***
+***																			***
+******************************************************************************/
 
 	Void parseMoreTime(int usersTime, int& hourTens, int& hourOnes, int& minuteTens, int& minuteOnes)
 	{
@@ -1166,13 +1360,22 @@ signify which segment of the numberal it draws
 		minuteOnes	= usersTime % 10;
 	}
 
-/**************************************************************
-***                                                			***
-***    playCountdown										***
-***                                                			***
-***		Plays countdownexplosion.wav						***
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***                                                							***
+***		Name:			playCountdown										***
+***                                                							***
+***		Description:	Plays the 3 - 2 - 1 - 0 followed by an explosive	***
+***						sound.												***
+***                                                							***
+***		Preconditions:	countdownexplosion.wav must be in wav/ direcotry.	***
+***																			***
+***		Postconditions:	None												***
+***																			***
+***		Calls:			None												***
+***																			***
+***		Called by:		countdown											***
+***																			***
+******************************************************************************/
 
 	Void playCountdown()
 	{
@@ -1185,13 +1388,21 @@ signify which segment of the numberal it draws
 		countdown.Play();
 	}
 
-/**************************************************************
-***                                                			***
-***    playClockTick										***
-***                                                			***
-***		Plays a clock-ticking sound effect					***
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***                                                							***
+***		Name:			playClockTick										***
+***                                                							***
+***		Description:	Plays a clock-ticking sound effect					***
+***                                                							***
+***		Preconditions:	clocktick.wav must be in wav/ direcotry.			***
+***																			***
+***		Postconditions:	None												***
+***																			***
+***		Calls:			None												***
+***																			***
+***		Called by:		showDateTime										***
+***																			***
+******************************************************************************/
 
 	Void playClockTick()
 	{
@@ -1204,13 +1415,27 @@ signify which segment of the numberal it draws
 		sndPlayer.Play();
 	}
 
-/**************************************************************
-***                                                			***
-***    setupClock											***
-***                                                			***
-***		
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***                                                							***
+***		Name:			setupClock											***
+***                                                							***
+***		Description:	Replaces BackgroundImage with picture of Pink Floyd	***
+***						LP over background of a clock and gears. Hides		***
+***						labelAccount, labelPassword, labelShowAcctNum.		***
+***						Shows labelEnterUserName, labelEnterTime,			***
+***						textBoxUserName, textBoxTime, and buttonSubmitTime.	***
+***						Changes BackColor of labelTitle to WhiteSmoke.		***
+***						Asks user when to activate the Internet.			***
+***																			***
+***		Preconditions:	None												***
+***																			***
+***		Postconditions:	None												***
+***																			***
+***		Calls:			None												***
+***																			***
+***		Called by:		timePause_Tick										***
+***																			***
+******************************************************************************/
 
 	Void setupClock()
 	{
@@ -1228,15 +1453,26 @@ signify which segment of the numberal it draws
 		labelTitle->Text = "When would you like to activate your Internet?";
 	}
 
-/**************************************************************
-***                                                			***
-***    showDateTime											***
-***                                                			***
-***		Refreshes pictureBoxBottom and draws DateTime as	***
-***		 a string in Cyan color with OCR A font size 20.	***
-***		 Calls playClockTick for sound effects.				***
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***                                                							***
+***		Name:			showDateTime										***
+***                                                							***
+***		Description:	Refreshes pictureBoxBottom, obtains current date	***
+***						and time from the system clock in the format of:	***
+***						Day of week month day hour:minute:second year		***
+***						and draws DateTime as a string in Cyan color with	***
+***						OCR A font size 20.	Calls playClockTick for sound	***
+***						effects.											***
+***                                                							***
+***		Preconditions:	None												***
+***																			***
+***		Postconditions:	None												***
+***																			***
+***		Calls:			playClockTick										***
+***																			***
+***		Called by:		timeDateTime_Tick									***
+***																			***
+******************************************************************************/
 
 	Void showDateTime()
 	{
@@ -1248,13 +1484,25 @@ signify which segment of the numberal it draws
 		playClockTick();
 	}
 
-/**************************************************************
-***                                                			***
-***    welcome												***
-***                                                			***
-***		
-***                                                			***
-**************************************************************/
+/******************************************************************************
+***                                                							***
+***		Name:			welcome												***
+***                                                							***
+***		Description:	Replaces BackgroundImage with picture of Dali's		***
+***						famous clock drawing. Shows labelTitle and			***
+***						labelDescription. Greets user to using the Internet	***
+***						service along with a description of what the		***
+***						service is about.									***
+***                                                							***
+***		Preconditions:	None												***
+***																			***
+***		Postconditions:	None												***
+***																			***
+***		Calls:			countdown											***
+***																			***
+***		Called by:		buttonStart_Click									***
+***																			***
+******************************************************************************/
 
 	Void welcome()
 	{
