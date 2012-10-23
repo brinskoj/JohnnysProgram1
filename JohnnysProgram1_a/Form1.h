@@ -221,13 +221,16 @@ namespace JohnnysProgram1_a {
 			// 
 			// buttonStart
 			// 
+			this->buttonStart->BackColor = System::Drawing::Color::DeepSkyBlue;
+			this->buttonStart->Font = (gcnew System::Drawing::Font(L"Modern No. 20", 21.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
 			this->buttonStart->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
-			this->buttonStart->Location = System::Drawing::Point(594, 527);
+			this->buttonStart->Location = System::Drawing::Point(468, 358);
 			this->buttonStart->Name = L"buttonStart";
-			this->buttonStart->Size = System::Drawing::Size(75, 23);
+			this->buttonStart->Size = System::Drawing::Size(316, 136);
 			this->buttonStart->TabIndex = 0;
 			this->buttonStart->Text = L"Start";
-			this->buttonStart->UseVisualStyleBackColor = true;
+			this->buttonStart->UseVisualStyleBackColor = false;
 			this->buttonStart->Click += gcnew System::EventHandler(this, &Form1::buttonStart_Click);
 			// 
 			// labelTitle
@@ -257,23 +260,29 @@ namespace JohnnysProgram1_a {
 			// 
 			// buttonExit
 			// 
+			this->buttonExit->BackColor = System::Drawing::Color::DeepSkyBlue;
+			this->buttonExit->Font = (gcnew System::Drawing::Font(L"Modern No. 20", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
 			this->buttonExit->Location = System::Drawing::Point(916, 397);
 			this->buttonExit->Name = L"buttonExit";
 			this->buttonExit->Size = System::Drawing::Size(275, 97);
 			this->buttonExit->TabIndex = 3;
 			this->buttonExit->Text = L"Exit";
-			this->buttonExit->UseVisualStyleBackColor = true;
+			this->buttonExit->UseVisualStyleBackColor = false;
 			this->buttonExit->Visible = false;
 			this->buttonExit->Click += gcnew System::EventHandler(this, &Form1::buttonExit_Click);
 			// 
 			// buttonToLogin
 			// 
+			this->buttonToLogin->BackColor = System::Drawing::Color::DeepSkyBlue;
+			this->buttonToLogin->Font = (gcnew System::Drawing::Font(L"Modern No. 20", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
 			this->buttonToLogin->Location = System::Drawing::Point(635, 397);
 			this->buttonToLogin->Name = L"buttonToLogin";
 			this->buttonToLogin->Size = System::Drawing::Size(275, 97);
 			this->buttonToLogin->TabIndex = 4;
 			this->buttonToLogin->Text = L"Continue";
-			this->buttonToLogin->UseVisualStyleBackColor = true;
+			this->buttonToLogin->UseVisualStyleBackColor = false;
 			this->buttonToLogin->Visible = false;
 			this->buttonToLogin->Click += gcnew System::EventHandler(this, &Form1::buttonToLogin_Click);
 			// 
@@ -341,12 +350,15 @@ namespace JohnnysProgram1_a {
 			// 
 			// buttonLogin
 			// 
+			this->buttonLogin->BackColor = System::Drawing::Color::DeepSkyBlue;
+			this->buttonLogin->Font = (gcnew System::Drawing::Font(L"Modern No. 20", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
 			this->buttonLogin->Location = System::Drawing::Point(635, 397);
 			this->buttonLogin->Name = L"buttonLogin";
 			this->buttonLogin->Size = System::Drawing::Size(275, 97);
 			this->buttonLogin->TabIndex = 10;
 			this->buttonLogin->Text = L"Login";
-			this->buttonLogin->UseVisualStyleBackColor = true;
+			this->buttonLogin->UseVisualStyleBackColor = false;
 			this->buttonLogin->Visible = false;
 			this->buttonLogin->Click += gcnew System::EventHandler(this, &Form1::buttonLogin_Click);
 			// 
@@ -422,12 +434,15 @@ namespace JohnnysProgram1_a {
 			// 
 			// buttonSubmitTime
 			// 
+			this->buttonSubmitTime->BackColor = System::Drawing::Color::DeepSkyBlue;
+			this->buttonSubmitTime->Font = (gcnew System::Drawing::Font(L"Modern No. 20", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
 			this->buttonSubmitTime->Location = System::Drawing::Point(635, 397);
 			this->buttonSubmitTime->Name = L"buttonSubmitTime";
 			this->buttonSubmitTime->Size = System::Drawing::Size(275, 97);
 			this->buttonSubmitTime->TabIndex = 17;
 			this->buttonSubmitTime->Text = L"Submit";
-			this->buttonSubmitTime->UseVisualStyleBackColor = true;
+			this->buttonSubmitTime->UseVisualStyleBackColor = false;
 			this->buttonSubmitTime->Visible = false;
 			this->buttonSubmitTime->Click += gcnew System::EventHandler(this, &Form1::buttonSubmitTime_Click);
 			// 
@@ -1121,8 +1136,8 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 				 "	Course # and Title		:	CISC 192  - C++\n"
 				 "	Class Meeting Time		:	TTh 9:35 - 12:40\n"
 				 "	Instructor			:	Professor Forman\n"
-				 "	Hours			:	21\n"
-				 "	Difficulty			:	6\n"
+				 "	Hours			:	20\n"
+				 "	Difficulty			:	5\n"
 				 "	Completion Date		:	10/23/2012\n"
 				 "	Project Name		:	It's About Time\n\n"
 				 "**************************************************************************************\n"
